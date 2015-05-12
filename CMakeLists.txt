@@ -6,4 +6,6 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -O0")
 include_directories(utils ${INCLUDE_DIRS})
 
 add_subdirectory(virtual_function)
+add_subdirectory(thread)
+
 add_subdirectory(utils)
