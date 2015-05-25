@@ -18,6 +18,16 @@ public:
   }
 };
 
+class Engine
+{
+public:
+  void doSomeThing()
+  {
+    int i = 1;
+    i++;
+  }
+};
+
 // template engine
 template<class T_engine>
 class TBase
@@ -35,7 +45,7 @@ int main(int argc, char *argv[])
   utils::Timer timer;
 
   Base* dynamic_bind = new Derived();
-  TBase<Derived> static_bind;
+  TBase<Engine> static_bind;
 
   timer.start();
   for(int i=0; i<5000; i++)

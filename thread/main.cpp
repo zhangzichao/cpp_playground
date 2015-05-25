@@ -21,6 +21,9 @@ void infiteSubThread()
 
 void anotherThread()
 {
+  // observer
+  std::cout << "there're " << std::thread::hardware_concurrency()
+            << " concurrent threads allowed on this machine.\n";
   // without the detach call here,
   //   the program will ne terminated as soon as this method returns
   std::thread inner(infiteSubThread);
