@@ -5,10 +5,20 @@
 class Base
 {
 public:
-  virtual void doSomeThing() = 0;
+  virtual void doSomeThing() { int i=1; i++; };
 };
 
-class Derived: public Base
+class Derived1: public Base
+{
+public:
+  virtual void doSomeThing()
+  {
+    int i = 1;
+    i++;
+  }
+};
+
+class Derived2: public Base
 {
 public:
   virtual void doSomeThing()
@@ -44,14 +54,15 @@ int main(int argc, char *argv[])
 {
   utils::Timer timer;
 
-  Base* dynamic_bind = new Derived();
+  Base& dynamic_bind = *(new Derived1());
   TBase<Engine> static_bind;
 
   timer.start();
   for(int i=0; i<5000; i++)
-    dynamic_bind->doSomeThing();
+    dynamic_bind.doSomeThing();
   timer.stop();
   std::cout << "Dynamic binding: "<< timer.getMilliseconds() << std::endl;
+  delete &dynamic_bind;
 
   timer.start();
   for(int i=0; i<5000; i++)

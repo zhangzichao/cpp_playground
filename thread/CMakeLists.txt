@@ -7,3 +7,5 @@ if(${Pangolin_FOUND})
   add_executable(multi_windows multi_win.cpp)
   target_link_libraries(multi_windows ${LINK_LIBS})
 endif()
+
+add_executable(future future.cpp)
