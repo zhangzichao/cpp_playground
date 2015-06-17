@@ -19,5 +19,6 @@ include_directories(utils ${INCLUDE_DIRS})
 add_subdirectory(virtual_function)
 add_subdirectory(thread)
 add_subdirectory(cache)
+add_subdirectory(misc)
 
 add_subdirectory(utils)
