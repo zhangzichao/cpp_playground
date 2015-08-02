@@ -49,6 +49,33 @@ private:
   T_engine engine_;
 };
 
+// CRTP
+template<class Impl>
+class CRTPBase
+{
+public:
+  void doSomeThing()
+  { static_cast<Impl*>(this)->doSomeThing(); }
+};
+
+class CRTPImpl : public CRTPBase<CRTPImpl>
+{
+public:
+  void doSomeThing()
+  { int i=1; i++; }
+};
+
+template<class T_CRTP_Impl>
+inline void runCRTP(CRTPBase<T_CRTP_Impl>& crtp)
+{
+  utils::Timer timer;
+  timer.start();
+  for(int i=0; i<5000; i++)
+    crtp.doSomeThing();
+  timer.stop();
+  std::cout << "CRTP: "<< timer.getMilliseconds() << std::endl;
+}
+
 
 int main(int argc, char *argv[])
 {
@@ -56,6 +83,7 @@ int main(int argc, char *argv[])
 
   Base& dynamic_bind = *(new Derived1());
   TBase<Engine> static_bind;
+  CRTPImpl crtp_impl;
 
   timer.start();
   for(int i=0; i<5000; i++)
@@ -69,6 +97,8 @@ int main(int argc, char *argv[])
     static_bind.doSomeThing();
   timer.stop();
   std::cout << "Static binding: "<< timer.getMilliseconds() << std::endl;
+
+  runCRTP(crtp_impl);
 
   return 0;
 }
